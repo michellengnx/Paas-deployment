@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem("token");
         if (token) {
             fetch(`${BACKEND_URL}/user/me`, {
-                headers: { "Authorization": token }
+                headers: { "Authorization": `Bearer ${token}` }
             })
                 .then(res => {
                     if (res.ok) return res.json();
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
             if (!res.ok) return data.message;
             localStorage.setItem("token", data.token);
             const meRes = await fetch(`${BACKEND_URL}/user/me`, {
-                headers: { "Authorization": data.token }
+                headers: { "Authorization": `Bearer ${data.token}` }
             });
             const meData = await meRes.json();
             setUser(meData.user);
