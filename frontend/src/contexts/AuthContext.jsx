@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState} from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext(null);
@@ -24,15 +24,15 @@ export const AuthProvider = ({ children }) => {
             fetch(`${BACKEND_URL}/user/me`, {
                 headers: { "Authorization": token }
             })
-            .then(res => {
-                if (res.ok) return res.json();
-                throw new Error("Invalid token");
-            })
-            .then(data => setUser(data.user))
-            .catch(() => {
-                localStorage.removeItem("token");
-                setUser(null);
-            });
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error("Invalid token");
+                })
+                .then(data => setUser(data.user))
+                .catch(() => {
+                    localStorage.removeItem("token");
+                    setUser(null);
+                });
         }
     }, [])
 
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
             });
             const data = await res.json();
             if (!res.ok) return data.message;
-            navigate("/");
+            navigate("/success");
         } catch (err) {
             return err.message;
         }
